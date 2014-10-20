@@ -1,0 +1,60 @@
+<section data-ng-controller="CraiglistsController" data-ng-init="initialize()">
+    <div class="page-header">
+        <h1>Craiglists</h1>
+    </div>
+    <div>
+        <form class="form-horizontal" data-ng-submit="scrap()" novalidate>
+            <!--
+            <select ng-model="selected.cities">
+                <option value="{{city}}" data-ng-repeat="city in cities">{{city}}</option>
+            </select>
+            -->
+            <select class="form-control" data-ng-model="city">
+                <option value="">Select a City</option>
+                <option value="boston">Boston</option>
+                <option value="chicago">Chicago</option>
+                <option value="tampa">Tampa Bay Area</option>
+                <option value="newyork">New York City</option>
+                <option value="houston">Houston</option>
+                <option value="losangeles">Los Angeles</option>
+                <option value="southcoast">south coast</option>
+                <option value="westernmass">western massachusetts</option>
+                <option value="worcester">worcester / central MA</option>
+                <option value="bakersfield">bakersfield</option>
+                <option value="hanford">hanford-corcoran</option>
+                <option value="humboldt">humboldt county</option>
+                <option value="imperial">imperial county</option>
+                <option value="inlandempire">inland empire</option>
+                <option value="mendocino">mendocino county</option>
+                <option value="merced">merced</option>
+                <option value="modesto">modesto</option>
+                <option value="monterey">monterey bay</option>
+                <option value="orangecounty">orange county</option>
+            </select>
+            <br />
+            <select class="form-control" data-ng-model="type">
+                <option value="">Select a Type</option>
+                <option value="bka">Books</option>
+                <option value="taa">Toys</option>
+                <option value="moa">Cellphones</option>
+                <option value="jwa">Jewelry</option>
+                <option value="web">Jobs</option></select>
+            <br />
+            <input type="text" id="q" data-ng-model="search" placeholder="Search" class="form-control">
+            <br /><button>Search</button>
+        </form>
+        <br /><br />
+    </div>
+    <div class="list-group">
+        <div ng-init="" style="width:100%; height:400px;" class="google-map" hello-maps="" latitude="40.77627" longitude="-73.910965" id="map-canvas"></div>
+        <h4 data-ng-module="">Total Results:{{counter}}</h4>
+        <a data-ng-repeat="craiglist in craiglists" data-ng-href="{{craiglist.url}}" class="list-group-item" target="_blank">
+            <h4 class="list-group-item-heading" data-ng-bind="craiglist.title"></h4>
+            <small>
+                City: {{craiglist.city}} &bull; {{craiglist.location}} &bull;
+                {{craiglist.date}} &bull; {{craiglist.category}}<br />
+                {{craiglist.url}}
+            </small>
+        </a>
+    </div>
+</section>

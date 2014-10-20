@@ -1,0 +1,7 @@
+[user]
+	name = doktordan
+	email = doktor_dan@yahoo.com
+[core]
+	editor = emacs
+[merge]
+	tool = vimdiff
