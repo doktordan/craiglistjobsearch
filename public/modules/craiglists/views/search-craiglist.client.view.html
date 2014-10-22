@@ -9,27 +9,10 @@
                 <option value="{{city}}" data-ng-repeat="city in cities">{{city}}</option>
             </select>
             -->
+            <span id="message">Loading City</span>
             <select class="form-control" data-ng-model="city">
                 <option value="">Select a City</option>
-                <option value="boston">Boston</option>
-                <option value="chicago">Chicago</option>
-                <option value="tampa">Tampa Bay Area</option>
-                <option value="newyork">New York City</option>
-                <option value="houston">Houston</option>
-                <option value="losangeles">Los Angeles</option>
-                <option value="southcoast">south coast</option>
-                <option value="westernmass">western massachusetts</option>
-                <option value="worcester">worcester / central MA</option>
-                <option value="bakersfield">bakersfield</option>
-                <option value="hanford">hanford-corcoran</option>
-                <option value="humboldt">humboldt county</option>
-                <option value="imperial">imperial county</option>
-                <option value="inlandempire">inland empire</option>
-                <option value="mendocino">mendocino county</option>
-                <option value="merced">merced</option>
-                <option value="modesto">modesto</option>
-                <option value="monterey">monterey bay</option>
-                <option value="orangecounty">orange county</option>
+                 <option ng-repeat="city in cityScap" value={{city.data}}>{{city.name}}</option>
             </select>
             <br />
             <select class="form-control" data-ng-model="type">
@@ -38,7 +21,10 @@
                 <option value="taa">Toys</option>
                 <option value="moa">Cellphones</option>
                 <option value="jwa">Jewelry</option>
-                <option value="web">Jobs</option></select>
+                <option value="web">Jobs</option>
+                <option value="sad">Systems</option>
+                <option value="sof">Dba</option>
+                <option value="res">Resumes</option></select>
             <br />
             <input type="text" id="q" data-ng-model="search" placeholder="Search" class="form-control">
             <br /><button>Search</button>

@@ -21,7 +21,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
           draggable: false,
           animation: google.maps.Animation.DROP
         }));
-        console.log(titles[iterator])
+        //console.log(titles[iterator])
         markers[iterator].setTitle(titles[iterator][0]);
         google.maps.event.addListener(markers[iterator], 'click', function() {
           var me = markers.indexOf(this);
@@ -41,19 +41,19 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
                 infoWindow.open(map, marker);
             });
         },
-    drop = function() {
+    dropAllPins = function() {
           for (var i = 0; i < neighborhoods.length; i++) {
             setTimeout(function() {
               addMarker();
             }, i * 200);
           }
     },
-    loop = function(results){
+    getAllCoordinates = function(results){
       var deferred = $q.defer();
         angular.forEach(results, function(value, key) {
           if (value.location){
               counter++;
-              codeAddress(value.location).then(function(){
+              getCoordinate(value.location).then(function(){
                 titles.push([value.title,value.url]);
                 if (counter==counter1){
                   deferred.resolve();
@@ -63,7 +63,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
          });
       return deferred.promise;
     },
-    codeAddress = function(loc) {
+    getCoordinate = function(loc) {
         var deferred = $q.defer();
         geocoder = new google.maps.Geocoder();
         geocoder.geocode( { 'address': loc}, function(results, status) {
@@ -77,9 +77,9 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
           }
         });
         return deferred.promise;
-  };
-  $scope.initialize = function(){
-        geocoder = new google.maps.Geocoder();
+  },
+  drawMap = function(){
+            geocoder = new google.maps.Geocoder();
         latlng = new google.maps.LatLng(37.09024, -95.712891);
         mapOptions = {
           zoom: 4,
@@ -87,6 +87,40 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  },
+  getJobs = function(){
+    var jobs = new Craiglists ({
+      getjobs: true
+     });
+      Craiglists.get(jobs).$promise.then(
+            //success
+            function(results) {
+              console.log(results);
+            },
+            //error
+            function(err) {
+            }
+        );
+   },
+  getCities = function(){
+    var cities = new Craiglists ({
+      getcities: true
+     });
+      Craiglists.get(cities).$promise.then(
+            //success
+            function(results) {
+              $scope.cityScap = results;
+             document.getElementById("message").innerHTML = "Select a City";
+            },
+            //error
+            function(err) {
+            }
+        );
+   };
+  $scope.initialize = function(){
+    drawMap();
+    getCities();
+  //  getJobs();
   };  
   $scope.scrap = function() {
    var craiglists = new Craiglists ({
@@ -99,8 +133,8 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             //success
             function(results) {
               $scope.counter = Object.keys(results).length -2;
-              loop(results).then(function(){
-                 drop();
+              getAllCoordinates(results).then(function(){
+                 dropAllPins();
               });
             },
             //error
