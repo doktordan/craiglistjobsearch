@@ -63,6 +63,19 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
          });
       return deferred.promise;
     },
+    getSpecifics = function(element){
+      var specifics = new Craiglists ({
+          getspecifics:true,
+          selectingElement:element
+       });
+      Craiglists.get(specifics).$promise.then(
+        function(results) {
+          $scope.jobScap = results;
+        },
+        function(err) {
+        }
+      );
+    },
     getJobs = function(){
       var jobs = new Craiglists ({
           getjobs:true
@@ -138,10 +151,10 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
   $scope.getSelectors = function(selector){
     switch(this.type){
       case "Jobs":
-          getJobs();
+          getSpecifics('#jjj0');
           break;
       case "Sale":
-          getSales();
+          getSpecifics('#sss0,#sss1');
           break;
       default: 
         $scope.enableMe(3);
@@ -154,7 +167,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     getCities();
   };  
   $scope.scrap = function() {
-    console.log(this.specific);
    var craiglists = new Craiglists ({
     city: this.city,
     search: this.search,

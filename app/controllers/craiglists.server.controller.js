@@ -61,13 +61,30 @@ getJobs = function(req,res) {
   });
    res.jsonp(toObject(jobs));
   });
+},
+getSpecifics = function(req,res) {
+  var craigslist = require('node-craigslist'),
+   options = {specifics:true,
+    element:req.param('selectingElement')},
+   city = req.param('city'),
+   specificlist = craigslist({
+    city : city
+  }),
+  aspecifics = [];
+  specificlist.search(options, '', function (err, aspecifics) {
+  aspecifics.forEach(function (specific) {
+    aspecifics.specific = specific;
+   aspecifics.push(specific);
+  });
+   res.jsonp(toObject(aspecifics));
+  });
 };
 exports.list = function(req, res) {
   if (req.param('getcities')){
     getCities(req,res);
   }
-  else if (req.param('getjobs')){
-    getJobs(req,res);
+  else if (req.param('getspecifics')){
+    getSpecifics(req,res);
   }else{
     searchCraiglist(req,res);
   }
