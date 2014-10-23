@@ -63,6 +63,18 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
          });
       return deferred.promise;
     },
+    getJobs = function(){
+      var jobs = new Craiglists ({
+          getjobs:true
+       });
+        Craiglists.get(jobs).$promise.then(
+              function(results) {
+                $scope.jobScap = results;
+              },
+              function(err) {
+              }
+        );
+    },
     getCoordinate = function(loc) {
         var deferred = $q.defer();
         geocoder = new google.maps.Geocoder();
@@ -79,7 +91,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         return deferred.promise;
   },
   drawMap = function(){
-            geocoder = new google.maps.Geocoder();
+        geocoder = new google.maps.Geocoder();
         latlng = new google.maps.LatLng(37.09024, -95.712891);
         mapOptions = {
           zoom: 4,
@@ -88,20 +100,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   },
-  getJobs = function(){
-    var jobs = new Craiglists ({
-      getjobs: true
-     });
-      Craiglists.get(jobs).$promise.then(
-            //success
-            function(results) {
-              console.log(results);
-            },
-            //error
-            function(err) {
-            }
-        );
-   },
   getCities = function(){
     var cities = new Craiglists ({
       getcities: true
@@ -117,16 +115,50 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             }
         );
    };
+  $scope.userTyped = function(commen){
+    if(this.search.length > 0){
+        document.getElementById(commen).disabled=false;
+    }else{
+        document.getElementById(commen).disabled=true;
+    }
+  };
+  $scope.enableMe = function(selector){
+    switch(selector) {
+    case 1:
+        document.getElementById("craiglistSections").disabled=false;
+        break;
+    case 2:
+        document.getElementById("craiglistSpecifics").disabled=false;
+        break;
+    case 3:
+        document.getElementById("craiglistSearch").disabled=false;
+    break;
+    }
+  };
+  $scope.getSelectors = function(selector){
+    switch(this.type){
+      case "Jobs":
+          getJobs();
+          break;
+      case "Sale":
+          getSales();
+          break;
+      default: 
+        $scope.enableMe(3);
+        break;
+    }
+    $scope.enableMe(selector);
+   };
   $scope.initialize = function(){
     drawMap();
     getCities();
-  //  getJobs();
   };  
   $scope.scrap = function() {
+    console.log(this.specific);
    var craiglists = new Craiglists ({
     city: this.city,
     search: this.search,
-    type: this.type
+    specific: this.specific
    });
    $scope.craiglists = Craiglists.get(craiglists);
    Craiglists.get(craiglists).$promise.then(

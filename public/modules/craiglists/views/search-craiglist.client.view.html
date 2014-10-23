@@ -6,35 +6,25 @@
         <form class="form-horizontal" data-ng-submit="scrap()" novalidate>
  
             <span id="message">Loading City</span>
-            <select class="form-control" data-ng-model="city">
+            <select class="form-control" ng-change="enableMe(1)" data-ng-model="city">
                 <option value="">City</option>
                  <option ng-repeat="city in cityScap" value={{city.data}}>{{city.name}}</option>
             </select>
             <br />
-            <select class="form-control" data-ng-model="type">
+            <select disabled id="craiglistSections" class="form-control" ng-change="getSelectors(2)"  data-ng-model="type">
                 <option value="">Select a Type</option>
-                <option value="bka">Books</option>
-                <option value="taa">Toys</option>
-                <option value="moa">Cellphones</option>
-                <option value="jwa">Jewelry</option>
-                <option value="web">Jobs</option>
-                <option value="sad">Systems</option>
-                <option value="sof">Dba</option>
-                <option value="res">Resumes</option></select>
+                <option value="Jobs">Jobs</option>
+                <option value="Sale">For Sale</option>
+                <option value="res">Resumes</option>
+            </select>
             <br />
-             <select class="form-control" data-ng-model="specification">
-                <option value="">Select Specification</option>
-                <option value="bka">Books</option>
-                <option value="taa">Toys</option>
-                <option value="moa">Cellphones</option>
-                <option value="jwa">Jewelry</option>
-                <option value="web">Jobs</option>
-                <option value="sad">Systems</option>
-                <option value="sof">Dba</option>
-                <option value="res">Resumes</option></select>
+            <select disabled class="form-control" id="craiglistSpecifics" ng-change="enableMe(3)" data-ng-model="specific"/>
+                <option value="">Select Specifics</option>
+                 <option ng-repeat="job in jobScap" value={{job.href}}>{{job.text}}</option>
+            </select>
             <br />
-            <input type="text" id="q" data-ng-model="search" placeholder="Search" class="form-control">
-            <br /><button>Search</button>
+            <input disabled type="text" id="craiglistSearch" data-ng-model="search" placeholder="Search" class="form-control" ng-keyup="userTyped('craiglistGo')">
+            <br /><button disabled id="craiglistGo">Search</button>
         </form>
         <br /><br />
     </div>

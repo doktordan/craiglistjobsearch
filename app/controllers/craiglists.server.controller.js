@@ -1,8 +1,8 @@
 'use strict';
 var mongoose = require('mongoose'),
-	errorHandler = require('./errors'),
-	Craiglist = mongoose.model('Craiglist'),
-	_ = require('lodash'),
+  errorHandler = require('./errors'),
+  Craiglist = mongoose.model('Craiglist'),
+  _ = require('lodash'),
 
 
 toObject= function(arr) {
@@ -15,12 +15,12 @@ toObject= function(arr) {
 searchCraiglist = function(req,res){
   var craigslist = require('node-craigslist'),
   city = req.param('city'),
-   types = req.param('type'),
+   specific = req.param('specific'),
    search = req.param('search'),
    clist = craigslist({
     city : city
   }),
-  options = {type:types},
+  options = {type:specific},
   listings = [];
   clist.search(options, search, function (err, listings) {
    listings.forEach(function (listing) {
