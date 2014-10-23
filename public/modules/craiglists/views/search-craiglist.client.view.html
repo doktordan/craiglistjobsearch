@@ -4,11 +4,7 @@
     </div>
     <div>
         <form class="form-horizontal" data-ng-submit="scrap()" novalidate>
-            <!--
-            <select ng-model="selected.cities">
-                <option value="{{city}}" data-ng-repeat="city in cities">{{city}}</option>
-            </select>
-            -->
+ 
             <span id="message">Loading City</span>
             <select class="form-control" data-ng-model="city">
                 <option value="">Select a City</option>
@@ -17,6 +13,17 @@
             <br />
             <select class="form-control" data-ng-model="type">
                 <option value="">Select a Type</option>
+                <option value="bka">Books</option>
+                <option value="taa">Toys</option>
+                <option value="moa">Cellphones</option>
+                <option value="jwa">Jewelry</option>
+                <option value="web">Jobs</option>
+                <option value="sad">Systems</option>
+                <option value="sof">Dba</option>
+                <option value="res">Resumes</option></select>
+            <br />
+             <select class="form-control" data-ng-model="specification">
+                <option value="">Select Specification</option>
                 <option value="bka">Books</option>
                 <option value="taa">Toys</option>
                 <option value="moa">Cellphones</option>

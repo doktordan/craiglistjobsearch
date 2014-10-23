@@ -133,3 +133,16 @@ cd /
 ls
 sudo apt-get install gcc make build-essential
 npm install mongodb
+grunt
+git init
+;s
+git remote -v
+git remote set-url origin git@gitlab.com:doktordan10/jobsearch.git
+git remote -v
+git push origin master
+git push -u origin master
+grunt
+git statu
+git status
+git log
+git push origin master
