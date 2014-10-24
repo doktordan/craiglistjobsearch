@@ -8,7 +8,7 @@
             <span id="message">Loading City</span>
             <select class="form-control" ng-change="enableMe(1)" data-ng-model="city">
                 <option value="">City</option>
-                 <option ng-repeat="city in cityScap" value={{city.data}}>{{city.name}}</option>
+                 <option ng-repeat="city in cityScap | toArray | orderBy:'name' | unique:'name'" value={{city.data}}>{{city.data}} - {{city.name}}</option>
             </select>
             <br />
             <select disabled id="craiglistSections" class="form-control" ng-change="getSelectors(2)"  data-ng-model="type">
