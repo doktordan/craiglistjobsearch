@@ -73,20 +73,20 @@ getJobs = function(req,res) {
 },
 getSpecifics = function(req,res) {
   var craigslist = require('node-craigslist'),
-   options = {specifics:true,
-    element:req.param('selectingElement')},
-   city = req.param('city'),
-   specificlist = craigslist({
-    city : city
-  }),
-  aspecifics = [];
-  specificlist.search(options, '', function (err, aspecifics) {
-  aspecifics.forEach(function (specific) {
-    aspecifics.specific = specific;
-   aspecifics.push(specific);
-  });
-   res.jsonp(toObject(aspecifics));
-  });
+      city = req.param('city'),
+      options = {
+      specifics:true,
+      element:req.param('selectingElement'),
+      city:city},
+      specificlist = craigslist({}),
+    aspecifics = [];
+    specificlist.search(options, '', function (err, aspecifics) {
+      aspecifics.forEach(function (specific) {
+        aspecifics.specific = specific;
+        aspecifics.push(specific);
+      });
+     res.jsonp(toObject(aspecifics));
+    });
 };
 exports.list = function(req, res) {
   if (req.param('getcities')){

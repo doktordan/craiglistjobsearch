@@ -5,8 +5,8 @@
     <div>
         <form class="form-horizontal" data-ng-submit="scrap()" novalidate>
  
-            <span id="message">Loading City</span>
-            <select class="form-control" ng-change="enableMe(1)" data-ng-model="city">
+            <h4 id="message">Loading City</h4>
+            <select  id="craiglistCities" class="form-control" ng-change="enableMe(1)" data-ng-model="city">
                 <option value="">City</option>
                  <option ng-repeat="city in cityScap | toArray | orderBy:'name' | unique:'name'" value={{city.data}}>{{city.data}} - {{city.name}}</option>
             </select>
