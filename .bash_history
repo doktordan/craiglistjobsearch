@@ -146,3 +146,114 @@ git statu
 git status
 git log
 git push origin master
+git status
+git log
+remote -v
+git remote -v
+git push origin master
+git push origin master 
+git status
+git commit -am "node-craiglist
+git commit -am "node-craiglist"
+git commit -am "node-craiglist"
+git push origin master
+git push --help
+git push origin master -f
+git push -U origin master
+git push -u origin master
+git push –force origin master
+git push –-force origin master
+git push –f origin master
+git push � origin master -f
+git push origin master -f
+git init
+git status
+git push -u origin master
+git status
+git commit -am "Craiglist Scraper Update"
+git pull origin master
+git commit -am "Merge"
+git config --global user.name doktordan
+git config --global user.email doktor_dan@yahoo.com
+git commit -am "Merge"
+git pull origin master
+git log
+git reset 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8
+ls
+cd app
+ls
+cd controllers/
+ls
+git branch
+git branch
+ls
+cd ..
+ls
+ls
+cd ..
+ls
+git reset 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8
+git commit -m "revert to 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8"
+ls
+cd app/
+ls
+cd controllers/
+ls
+git log
+git reset 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8
+git status
+git reset --hard
+ls
+cd ..
+ls
+cd ..
+ls
+git push origin master
+git push origin master -f
+ls
+git status
+git reset origin master 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8
+git origin master reset 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8
+git origin reset 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3
+git push origin master
+git status
+git log
+git commit -m "Reverse"
+git log
+git commit -am "Reverse"
+git status
+git push --force origin master
+git pull origin master
+ls
+git reset --hard 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8
+git push -f origin master
+git push -f origin 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8:master
+bundle
+git push -f origin 19fa2b0e2de4e722fbfcc1f0990bca836a2ca3d8:master
+git hist
+git origin log
+git origin master log
+git status
+git commit -am "Update"
+git push origin master
+ssh git@gitlab.com:doktordan10/jobsearch.git
+git@gitlab.com:doktordan10/jobsearch.git
+ssh gitlab.com:doktordan10/jobsearch.git
+ls
+git init
+git remote -v
+git push -u origin master
+gir checkout -b daniel
+git checkout -b daniel
+git push origin daniel
+git status
+git commit -am "New Flow work choose cities, chose type (e.g jobs,for sale,etc),chose specifics (e.g web,books,etc) search"
+git push origin daniel
+git push origin master
+git checkout master
+git pull origin master
+ls
+git status
+git commit -am "Argumental Scraping"
+git push origin master
+exit

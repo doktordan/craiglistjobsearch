@@ -63,14 +63,36 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
          });
       return deferred.promise;
     },
+    getCityName = function(){
+        var city = document.getElementById("craiglistCities").options[document.getElementById("craiglistCities").selectedIndex].value;
+        return city;
+    },
+    getCities = function(){
+      var cities = new Craiglists ({
+        getcities: true
+       });
+        Craiglists.get(cities).$promise.then(
+            //success
+            function(results) {
+              $scope.cityScap = results;
+             document.getElementById("message").innerHTML = "";
+            },
+            //error
+            function(err) {
+            }
+        );
+   },
     getSpecifics = function(element){
-      var specifics = new Craiglists ({
+      var city = getCityName(),
+      specifics = new Craiglists ({
           getspecifics:true,
-          selectingElement:element
+          selectingElement:element,
+          city:city
        });
       Craiglists.get(specifics).$promise.then(
         function(results) {
           $scope.jobScap = results;
+          document.getElementById("message").innerHTML = "";
         },
         function(err) {
         }
@@ -103,6 +125,10 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         });
         return deferred.promise;
   },
+  resetSearch = function(){
+    document.getElementById("craiglistSearch").value = "";
+    document.getElementById("craiglistGo").disabled=true;
+  },
   drawMap = function(){
         geocoder = new google.maps.Geocoder();
         latlng = new google.maps.LatLng(37.09024, -95.712891);
@@ -112,27 +138,14 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  },
-  getCities = function(){
-    var cities = new Craiglists ({
-      getcities: true
-     });
-      Craiglists.get(cities).$promise.then(
-            //success
-            function(results) {
-              $scope.cityScap = results;
-             document.getElementById("message").innerHTML = "Select a City";
-            },
-            //error
-            function(err) {
-            }
-        );
-   };
+  };
   $scope.userTyped = function(commen){
-    if(this.search.length > 0){
-        document.getElementById(commen).disabled=false;
-    }else{
-        document.getElementById(commen).disabled=true;
+    if (this.search!=undefined){
+          if(this.search.length > 0){
+              document.getElementById(commen).disabled=false;
+          }else{
+              document.getElementById(commen).disabled=true;
+          }
     }
   };
   $scope.enableMe = function(selector){
@@ -149,6 +162,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     }
   };
   $scope.getSelectors = function(selector){
+    document.getElementById("message").innerHTML = "Loading Specific";
     switch(this.type){
       case "Jobs":
           getSpecifics('#jjj0');
@@ -167,8 +181,9 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     getCities();
   };  
   $scope.scrap = function() {
-   var craiglists = new Craiglists ({
-    city: this.city,
+    var city = getCityName(),
+    craiglists = new Craiglists ({
+    city: city,
     search: this.search,
     specific: this.specific
    });
@@ -180,6 +195,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
               getAllCoordinates(results).then(function(){
                  dropAllPins();
               });
+              resetSearch();
             },
             //error
             function(err) {
