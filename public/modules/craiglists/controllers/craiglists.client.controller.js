@@ -25,7 +25,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         markers[iterator].setTitle(titles[iterator][0]);
         google.maps.event.addListener(markers[iterator], 'click', function() {
           var me = markers.indexOf(this);
-          $window.open(titles[me][1])
+          $window.open(titles[me][1]);
         //  addInfoWindow(this,this.title)
         });
         iterator++;
@@ -46,6 +46,11 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             setTimeout(function() {
               addMarker();
             }, i * 200);
+          }
+    },
+    removeAllPins = function(){
+       for (var i = 0; i < neighborhoods.length; i++) {
+            markers[i].setMap(null);
           }
     },
     getAllCoordinates = function(results){
@@ -125,10 +130,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         });
         return deferred.promise;
   },
-  resetSearch = function(){
-    document.getElementById("craiglistSearch").value = "";
-    document.getElementById("craiglistGo").disabled=true;
-  },
   drawMap = function(){
         geocoder = new google.maps.Geocoder();
         latlng = new google.maps.LatLng(37.09024, -95.712891);
@@ -191,11 +192,11 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
    Craiglists.get(craiglists).$promise.then(
             //success
             function(results) {
+              removeAllPins();
               $scope.counter = Object.keys(results).length -2;
               getAllCoordinates(results).then(function(){
                  dropAllPins();
               });
-              resetSearch();
             },
             //error
             function(err) {
