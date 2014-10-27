@@ -14,22 +14,40 @@ toObject= function(arr) {
 
 searchCraiglist = function(req,res){
   var craigslist = require('node-craigslist'),
-  city = req.param('city'),
-   specific = req.param('specific'),
-   search = req.param('search'),
-   clist = craigslist({
-    city : city
-  }),
-  options = {type:specific},
-  listings = [];
-  clist.search(options, search, function (err, listings) {
-   listings.forEach(function (listing) {
-    listing.city = city;
-    var url = listing.url;
-    listings.push(listing);
-   });
-   res.jsonp(toObject(listings));
+      city = req.param('city'),
+      clist = craigslist({
+        city : city
+      }),
+  search = req.param('search');
+
+  //options = {type:specific},
+  var listings = [];
+  console.log(Array.isArray(req.param('specific')));
+
+  var specific = [];
+  Array.isArray(req.param('specific')) ? specific = req.param('specific') : specific.push(req.param('specific'));
+
+  specific.forEach(function(element, index, array){
+    console.log('how many time I am passing here: ' + index);
+    setTimeout(function() {
+        var options = {type:element};
+        clist.search(options, search, function (err, listings) {
+          listings.forEach(function (listing) {
+            listing.city = city;
+            var url = listing.url;
+            listings.push(listing);
+          });
+          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+          res.jsonp(toObject(listings));
+          console.log(toObject(listings));
+        });
+    }, 9000);
   });
+  //console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  //console.log(toObject(listings));
+  //res.jsonp(toObject(listings));
+
+
 },
 
 getCities = function(req,res) {

@@ -17,12 +17,23 @@
                 <option value="Sale">For Sale</option>
                 <option value="res">Resumes</option>
             </select>
-            <br />
+
+
+            <!--
             <select disabled class="form-control" id="craiglistSpecifics" ng-change="enableMe(3)" data-ng-model="specific"/>
                 <option value="">Select Specifics</option>
                  <option ng-repeat="job in jobScap" value={{job.href}}>{{job.text}}</option>
             </select>
             <br />
+            -->
+
+
+            <div id="craiglistSpecifics" ng-repeat="job in jobScap" data-ng-model="specific">
+                <input type="checkbox" checkbox-group value={{job.href}}> {{job.text}}<br>
+            </div>
+            <br />
+
+
             <input disabled type="text" id="craiglistSearch" data-ng-model="search" placeholder="Search" class="form-control" ng-keyup="userTyped('craiglistGo')">
             <br /><button disabled id="craiglistGo">Search</button>
         </form>
