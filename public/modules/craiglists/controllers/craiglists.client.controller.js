@@ -87,7 +87,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         );
    },
     getSpecifics = function(element){
-      alert('getSpecifics');
       var city = getCityName(),
       specifics = new Craiglists ({
           getspecifics:true,

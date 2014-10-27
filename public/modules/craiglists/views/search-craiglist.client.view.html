@@ -27,9 +27,10 @@
             <br />
             -->
 
-
-            <div id="craiglistSpecifics" ng-repeat="job in jobScap" data-ng-model="specific">
-                <input type="checkbox" checkbox-group value={{job.href}}> {{job.text}}<br>
+            <div  style="margin-top: 20px; column-count: 3; -webkit-column-count: 3; -webkit-column-rule: 4px outset grey; column-rule: 4px outset grey;">
+                <div id="craiglistSpecifics" ng-repeat="job in jobScap" data-ng-model="specific">
+                    <input type="checkbox" checkbox-group value={{job.href}}> {{job.text}}<br>
+                </div>
             </div>
             <br />
 
