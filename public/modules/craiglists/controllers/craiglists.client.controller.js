@@ -21,7 +21,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
           draggable: false,
           animation: google.maps.Animation.DROP
         }));
-        //console.log(titles[iterator])
         markers[iterator].setTitle(titles[iterator][0]);
         google.maps.event.addListener(markers[iterator], 'click', function() {
           var me = markers.indexOf(this);
@@ -88,6 +87,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         );
    },
     getSpecifics = function(element){
+      alert('getSpecifics');
       var city = getCityName(),
       specifics = new Craiglists ({
           getspecifics:true,
@@ -156,10 +156,9 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         document.getElementById("craiglistSections").disabled=false;
         break;
     case 2:
-        document.getElementById("craiglistSpecifics").disabled=false;
-        break;
-    case 3:
+        $scope.jobScap = {}; // basically, remove element pasing empty json
         document.getElementById("craiglistSearch").disabled=false;
+        document.getElementById("craiglistGo").disabled=false;
     break;
     }
   };
@@ -182,17 +181,19 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     drawMap();
     getCities();
   };  
+
   $scope.scrap = function() {
     var city = getCityName(),
     craiglists = new Craiglists ({
-    city: city,
-    search: this.search,
-    specific: this.specific
-   });
-   $scope.craiglists = Craiglists.get(craiglists);
+      city: city,
+      search: this.search,
+      specific: $scope.array
+    });
+   //$scope.craiglists = Craiglists.get(craiglists);
    Craiglists.get(craiglists).$promise.then(
             //success
             function(results) {
+              $scope.craiglists = Craiglists.get(craiglists);
               removeAllPins();
               $scope.counter = Object.keys(results).length -2;
               getAllCoordinates(results).then(function(){
@@ -204,6 +205,11 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             }
         );
   };
+
+
+  $scope.array = [];
+
+
  }
 ]).filter("toArray", function(){
     return function(obj) {
@@ -213,5 +219,33 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         });
         return result;
     };
+}).directive("checkboxGroup", function () {
+    return {
+        restrict: "A",
+        link: function (scope, elem, attrs) {
+            // Determine initial checked boxes
+            if (scope.array.indexOf(scope.job.href) !== -1) {
+                elem[0].checked = true;
+            }
+
+            // Update array on click
+            elem.bind('click', function () {
+                var index = scope.array.indexOf(scope.job.href);
+                // Add if checked
+                if (elem[0].checked) {
+                    if (index === -1) scope.array.push(scope.job.href);
+                }
+                // Remove if unchecked
+                else {
+                    if (index !== -1) scope.array.splice(index, 1);
+                }
+                // Sort and update DOM display
+                scope.$apply(scope.array.sort(function (a, b) {
+                    return a - b
+                }));
+                console.log(scope.array);
+            });
+        }
+    }
 });
 
