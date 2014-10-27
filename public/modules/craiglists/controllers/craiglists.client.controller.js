@@ -134,6 +134,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         geocoder = new google.maps.Geocoder();
         latlng = new google.maps.LatLng(37.09024, -95.712891);
         mapOptions = {
+          scrollwheel: false,
           zoom: 4,
           center: latlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP

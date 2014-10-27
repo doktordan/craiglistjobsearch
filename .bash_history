@@ -257,3 +257,42 @@ git status
 git commit -am "Argumental Scraping"
 git push origin master
 exit
+exit
+git status
+git commit -am "Fix bug once you searched it would crash when you changed the type of search (eg For Sale, Jobs)"
+git push origin master
+git status
+git commit -am "Removes old pins from map once you run a new search"
+git push origin master
+git --version
+git push origin master
+git log --no-merges
+git branch
+git push origin :daniel
+git push :daniel
+git push --delete daniel
+git branch
+git branch -d daniel
+ls
+git branch
+git fetch origin
+git checkout -b gaspar origin/gaspar
+git checkout master
+git merge --no-ff gaspar
+git push origin master
+git log
+git branch
+git checkout gaspar
+git checkout master
+git checkout -b daniel
+git status
+git push origin daniel
+git status
+git commit -am "Fix doble host bug"
+git push origin daniel
+git push origin master
+git fetch origin
+git checkout -b daniel origin/daniel
+git checkout master
+git merge --no-ff daniel
+git push origin master
