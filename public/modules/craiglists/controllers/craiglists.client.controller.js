@@ -21,7 +21,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
           draggable: false,
           animation: google.maps.Animation.DROP
         }));
-        //console.log(titles[iterator])
         markers[iterator].setTitle(titles[iterator][0]);
         google.maps.event.addListener(markers[iterator], 'click', function() {
           var me = markers.indexOf(this);
@@ -105,7 +104,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
       );
     },
     getJobs = function(){
-      alert('getJobs');
       var jobs = new Craiglists ({
           getjobs:true
        });
@@ -190,12 +188,10 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
       search: this.search,
       specific: $scope.array
     });
-    console.log(craiglists);
    //$scope.craiglists = Craiglists.get(craiglists);
    Craiglists.get(craiglists).$promise.then(
             //success
             function(results) {
-              console.log(results);
               $scope.craiglists = Craiglists.get(craiglists);
               removeAllPins();
               $scope.counter = Object.keys(results).length -2;

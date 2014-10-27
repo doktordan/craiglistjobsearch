@@ -20,15 +20,11 @@ searchCraiglist = function(req,res){
       }),
   search = req.param('search');
 
-  //options = {type:specific},
   var listings = [];
-  console.log(Array.isArray(req.param('specific')));
-
   var specific = [];
   Array.isArray(req.param('specific')) ? specific = req.param('specific') : specific.push(req.param('specific'));
 
   specific.forEach(function(element, index, array){
-    console.log('how many time I am passing here: ' + index);
     setTimeout(function() {
         var options = {type:element};
         clist.search(options, search, function (err, listings) {
@@ -37,17 +33,11 @@ searchCraiglist = function(req,res){
             var url = listing.url;
             listings.push(listing);
           });
-          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
           res.jsonp(toObject(listings));
-          console.log(toObject(listings));
+          //console.log(toObject(listings));
         });
     }, 9000);
   });
-  //console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  //console.log(toObject(listings));
-  //res.jsonp(toObject(listings));
-
-
 },
 
 getCities = function(req,res) {
