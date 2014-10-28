@@ -49,7 +49,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     },
     removeAllPins = function(){
        for (var i = 0; i < neighborhoods.length; i++) {
-            markers[i].setMap(null);
+            // error markers[i].setMap(null);
           }
     },
     getAllCoordinates = function(results){
@@ -123,7 +123,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             counter1++;
             deferred.resolve();
           } else {
-            console.log('Geocode was not successful for the following reason: ' + status);
+            //console.log('Geocode was not successful for the following reason: ' + status);
             counter1++;
           }
         });
@@ -180,28 +180,68 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     getCities();
   };  
 
+
+
+
+
+
   $scope.scrap = function() {
-    var city = getCityName(),
-    craiglists = new Craiglists ({
+    $scope.craiglists = $scope.craiglists || []; 
+    var city = getCityName();
+    var counter = 0;
+    var arrayResults = [];
+    /*craiglists = new Craiglists ({
       city: city,
       search: this.search,
       specific: $scope.array
-    });
-   //$scope.craiglists = Craiglists.get(craiglists);
-   Craiglists.get(craiglists).$promise.then(
+    });*/
+
+    var deferred = $q.defer();
+    var promise = deferred.promise;
+    promise.then(function () {
+      $scope.array.forEach(function(element, index, array){
+          counter+=1;
+          var craiglists = new Craiglists ({
+            city: city,
+            search: $scope.search,
+            specific: element
+          });
+          //console.log(craiglists);
+          Craiglists.get(craiglists).$promise.then(
             //success
             function(results) {
-              $scope.craiglists = Craiglists.get(craiglists);
+              arrayResults.push(Craiglists.get(craiglists))
+              if (array.length === arrayResults.length){
+                var finalResults = [];
+                arrayResults.forEach(function(element){
+                  counter+=1;
+                  //console.log(element);
+                  $scope.craiglists = element;
+                });
+              }
               removeAllPins();
-              $scope.counter = Object.keys(results).length -2;
+              //$scope.counter = Object.keys(results).length -2;
               getAllCoordinates(results).then(function(){
-                 dropAllPins();
+                dropAllPins();
               });
             },
             //error
             function(err) {
             }
-        );
+          )
+          .then(function(){
+            //console.log(arrayResults);
+            //$scope.obj = { prop: arrayResults };
+            $scope.obj = arrayResults;
+          });
+      });
+    }).then(function () {
+        //callback();
+    });
+    deferred.resolve();
+    //console.log(counter);
+      
+
   };
 
 
@@ -241,9 +281,49 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
                 scope.$apply(scope.array.sort(function (a, b) {
                     return a - b
                 }));
-                console.log(scope.array);
+                //console.log(scope.array);
             });
         }
     }
+}).directive('passObject', function ($compile) {
+    return {
+        restrict: 'E',
+        scope: { obj: '=' },
+        template: '{{obj}}',
+        //templateUrl: '/modules/craiglist/views/search-craiglist.client.view.details.html',
+        link: function (scope, element, attrs) {
+          console.log(element);
+        }
+    };
+
+
+
+
+  /*
+  return {
+    link: function (scope, element, attrs) {
+      if(typeof scope.craiglist !== "undefined") {
+        console.log(scope.craiglist.title);
+        var el = ' \
+          <a class="list-group-item" target="_blank"> \
+              <h4 class="list-group-item-heading">'+scope.craiglist.title+'</h4> \
+              <small> \
+                  City: '+scope.craiglist.city+' &bull; '+scope.craiglist.location+' &bull; \
+                  '+scope.craiglist.date+' &bull; '+scope.craiglist.category+'<br /> \
+                  '+scope.craiglist.url+' \
+              </small> \
+          </a> \
+        ';
+        var contentTr = angular.element(el);
+        console.log(contentTr);
+        contentTr.insertBefore(document.getElementById('container'));
+        //$compile(contentTr)(scope);
+      }
+    }
+  }
+  */
+
+
+
 });
 
