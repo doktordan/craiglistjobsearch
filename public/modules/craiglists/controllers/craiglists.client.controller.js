@@ -140,10 +140,24 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         });
         return deferred.promise;
   },
+  concatenateObjects = function(obj2){
+    var deferred = $q.defer(),
+        counter = 0;
+    for (var value in obj2) {
+        counter++;
+        $scope.craiglists.push(obj2[value]);
+        if (counter===Object.keys(obj2).length){
+          deferred.resolve();
+        }
+    }
+    return deferred.promise;
+  },
   getMultipleSearch = function(){
+    $scope.craiglists = [];
+    removeAllPins();
      var city = getCityName(),
-         arrayResults=[],
          counter = 0,
+         obj3 = {},
          deferred = $q.defer();
     $scope.array.forEach(function(element, index, array){
         var craiglists = new Craiglists ({
@@ -154,13 +168,13 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         Craiglists.get(craiglists).$promise.then(
         //success
         function(results) {
-          arrayResults.push(results);
-          counter++;
-          if (counter == $scope.array.length){
-            $scope.craiglists = arrayResults;
-            deferred.resolve();
-          }
-          //$scope.counter = Object.keys(arrayResults);
+             concatenateObjects(results.allSearches).then(function(){
+              counter++;
+              if (counter == $scope.array.length){
+                $scope.counter = $scope.craiglists.length;
+                deferred.resolve();
+              }
+          });
           },
           //error
           function(err) {
@@ -213,10 +227,9 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
   $scope.scrap = function() {
     $scope.craiglists = $scope.craiglists || []; 
     getMultipleSearch().then(function(){
-      console.log($scope.craiglists);
-      /*getAllCoordinates(arrayResults).then(function(){
+      getAllCoordinates($scope.craiglists).then(function(){
         dropAllPins();
-      });*/
+      });
     });
   };
 
@@ -257,7 +270,6 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
                 scope.$apply(scope.array.sort(function (a, b) {
                     return a - b
                 }));
-                //console.log(scope.array);
             });
         }
     }

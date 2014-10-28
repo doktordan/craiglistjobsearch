@@ -28,7 +28,7 @@ searchCraiglist = function(req,res){
     var url = listing.url;
     listings.push(listing);
    });
-   res.jsonp(toObject(listings));
+   res.jsonp({allSearches:toObject(listings)});
   });
 },
 
