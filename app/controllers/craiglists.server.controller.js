@@ -72,10 +72,13 @@ getSpecifics = function(req,res) {
       specificlist = craigslist({}),
     aspecifics = [];
     specificlist.search(options, '', function (err, aspecifics) {
+      // scraping return a complet json, we don't need push data again
+      /*
       aspecifics.forEach(function (specific) {
         aspecifics.specific = specific;
         aspecifics.push(specific);
       });
+      */
      res.jsonp(toObject(aspecifics));
     });
 };
