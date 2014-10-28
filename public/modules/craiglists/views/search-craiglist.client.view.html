@@ -11,23 +11,15 @@
                  <option ng-repeat="city in cityScap | toArray | orderBy:'name' | unique:'name'" value={{city.data}}>{{city.data}} - {{city.name}}</option>
             </select>
             <br />
-            <select disabled id="craiglistSections" class="form-control" ng-change="getSelectors(2)"  data-ng-model="type">
-                <option value="">Select a Type</option>
-                <option value="Jobs">Jobs</option>
-                <option value="Sale">For Sale</option>
-                <option value="res">Resumes</option>
-            </select>
-
-
-            <!--
-            <select disabled class="form-control" id="craiglistSpecifics" ng-change="enableMe(3)" data-ng-model="specific"/>
-                <option value="">Select Specifics</option>
-                 <option ng-repeat="job in jobScap" value={{job.href}}>{{job.text}}</option>
-            </select>
+            <h4>Jobs or Resumes</h4>
+            <div class="btn-group"=>
+                <label  id="craiglistSections1" class="btn btn-default disabled" ng-change="getSelectors()" data-ng-model="type" btn-radio="'Jobs'">Jobs</label>
+                <label id="craiglistSections2" class="btn btn-default disabled" ng-change="getSelectors()" data-ng-model="type" btn-radio="'Resume'">Resumes</label>
+            </div>
             <br />
-            -->
 
             <div  style="margin-top: 20px; column-count: 3; -webkit-column-count: 3; -webkit-column-rule: 4px outset grey; column-rule: 4px outset grey;">
+                <h4 id="message1"></h4>
                 <div id="craiglistSpecifics" ng-repeat="job in jobScap" data-ng-model="specific">
                     <input type="checkbox" checkbox-group value={{job.href}}> {{job.text}}<br>
                 </div>

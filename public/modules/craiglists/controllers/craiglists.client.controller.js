@@ -79,7 +79,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             //success
             function(results) {
               $scope.cityScap = results;
-             document.getElementById("message").innerHTML = "";
+             document.getElementById("message").innerHTML = "Cities";
             },
             //error
             function(err) {
@@ -96,7 +96,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
       Craiglists.get(specifics).$promise.then(
         function(results) {
           $scope.jobScap = results;
-          document.getElementById("message").innerHTML = "";
+          document.getElementById("message1").innerHTML = "";
         },
         function(err) {
         }
@@ -195,7 +195,8 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
   $scope.enableMe = function(selector){
     switch(selector) {
     case 1:
-        document.getElementById("craiglistSections").disabled=false;
+        document.getElementById("craiglistSections1").className = "btn btn-default";
+        document.getElementById("craiglistSections2").className = "btn btn-default";
         break;
     case 2:
         $scope.jobScap = {}; // basically, remove element pasing empty json
@@ -204,20 +205,17 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     break;
     }
   };
-  $scope.getSelectors = function(selector){
-    document.getElementById("message").innerHTML = "Loading Specific";
+  $scope.getSelectors = function(){
     switch(this.type){
       case "Jobs":
+          document.getElementById("message1").innerHTML = "Loading Specific";
           getSpecifics('#jjj0');
           break;
-      case "Sale":
-          getSpecifics('#sss0,#sss1');
+      case "Resume":
+          $scope.array=['/search/res'];
           break;
-      default: 
-        $scope.enableMe(3);
-        break;
-    }
-    $scope.enableMe(selector);
+     }
+      $scope.enableMe(2);
    };
   $scope.initialize = function(){
     drawMap();
