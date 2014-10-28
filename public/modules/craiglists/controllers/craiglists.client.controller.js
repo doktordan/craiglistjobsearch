@@ -114,6 +114,17 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
               }
         );
     },
+    drawMap = function(){
+        geocoder = new google.maps.Geocoder();
+        latlng = new google.maps.LatLng(37.09024, -95.712891);
+        mapOptions = {
+          scrollwheel: false,
+          zoom: 4,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    },
     getCoordinate = function(loc) {
         var deferred = $q.defer();
         geocoder = new google.maps.Geocoder();
@@ -129,17 +140,35 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
         });
         return deferred.promise;
   },
-  drawMap = function(){
-        geocoder = new google.maps.Geocoder();
-        latlng = new google.maps.LatLng(37.09024, -95.712891);
-        mapOptions = {
-          scrollwheel: false,
-          zoom: 4,
-          center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  };
+  getMultipleSearch = function(){
+     var city = getCityName(),
+         arrayResults=[],
+         counter = 0,
+         deferred = $q.defer();
+    $scope.array.forEach(function(element, index, array){
+        var craiglists = new Craiglists ({
+          city: city,
+          search: $scope.search,
+          specific: element
+        });
+        Craiglists.get(craiglists).$promise.then(
+        //success
+        function(results) {
+          arrayResults.push(results);
+          counter++;
+          if (counter == $scope.array.length){
+            $scope.craiglists = arrayResults;
+            deferred.resolve();
+          }
+          //$scope.counter = Object.keys(arrayResults);
+          },
+          //error
+          function(err) {
+          }
+      );
+    });
+  return deferred.promise;
+  }
   $scope.userTyped = function(commen){
     if (this.search!=undefined){
           if(this.search.length > 0){
@@ -181,68 +210,14 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     getCities();
   };  
 
-
-
-
-
-
   $scope.scrap = function() {
     $scope.craiglists = $scope.craiglists || []; 
-    var city = getCityName();
-    var counter = 0;
-    var arrayResults = [];
-    /*craiglists = new Craiglists ({
-      city: city,
-      search: this.search,
-      specific: $scope.array
-    });*/
-
-    var deferred = $q.defer();
-    var promise = deferred.promise;
-    promise.then(function () {
-      $scope.array.forEach(function(element, index, array){
-          counter+=1;
-          var craiglists = new Craiglists ({
-            city: city,
-            search: $scope.search,
-            specific: element
-          });
-          //console.log(craiglists);
-          Craiglists.get(craiglists).$promise.then(
-            //success
-            function(results) {
-              arrayResults.push(Craiglists.get(craiglists))
-              if (array.length === arrayResults.length){
-                var finalResults = [];
-                arrayResults.forEach(function(element){
-                  counter+=1;
-                  //console.log(element);
-                  $scope.craiglists = element;
-                });
-              }
-              removeAllPins();
-              //$scope.counter = Object.keys(results).length -2;
-              getAllCoordinates(results).then(function(){
-                dropAllPins();
-              });
-            },
-            //error
-            function(err) {
-            }
-          )
-          .then(function(){
-            //console.log(arrayResults);
-            //$scope.obj = { prop: arrayResults };
-            $scope.obj = arrayResults;
-          });
-      });
-    }).then(function () {
-        //callback();
+    getMultipleSearch().then(function(){
+      console.log($scope.craiglists);
+      /*getAllCoordinates(arrayResults).then(function(){
+        dropAllPins();
+      });*/
     });
-    deferred.resolve();
-    //console.log(counter);
-      
-
   };
 
 
@@ -286,45 +261,5 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
             });
         }
     }
-}).directive('passObject', function ($compile) {
-    return {
-        restrict: 'E',
-        scope: { obj: '=' },
-        template: '{{obj}}',
-        //templateUrl: '/modules/craiglist/views/search-craiglist.client.view.details.html',
-        link: function (scope, element, attrs) {
-          console.log(element);
-        }
-    };
-
-
-
-
-  /*
-  return {
-    link: function (scope, element, attrs) {
-      if(typeof scope.craiglist !== "undefined") {
-        console.log(scope.craiglist.title);
-        var el = ' \
-          <a class="list-group-item" target="_blank"> \
-              <h4 class="list-group-item-heading">'+scope.craiglist.title+'</h4> \
-              <small> \
-                  City: '+scope.craiglist.city+' &bull; '+scope.craiglist.location+' &bull; \
-                  '+scope.craiglist.date+' &bull; '+scope.craiglist.category+'<br /> \
-                  '+scope.craiglist.url+' \
-              </small> \
-          </a> \
-        ';
-        var contentTr = angular.element(el);
-        console.log(contentTr);
-        contentTr.insertBefore(document.getElementById('container'));
-        //$compile(contentTr)(scope);
-      }
-    }
-  }
-  */
-
-
-
 });
 
