@@ -3,10 +3,15 @@ This is a simple application scraping data from Craiglists lets you search in th
 
 ## How to Search
 *You Create an Account
+
 *Go to Search
+
 *Select a City 
+
 *Select a Search Mode (Jobs or Resumes)
+
 *Type your Search In
+
 *And Hit Go Now
 
 ```
