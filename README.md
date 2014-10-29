@@ -14,7 +14,7 @@ GO WILD!!!
 ```
 
 ## Credits
-Inspired by the great work of [Madhusudhan Srinivasa](https://github.com/madhums/)
-The MEAN name was coined by [Valeri Karpov](http://blog.mongodb.org/post/49262866911/the-mean-stack-mongodb-expressjs-angularjs-and)
+[Daniel Letona](https://twitter.com/doktordan10)
+[Gaspar Belandria](https://twitter.com/gasparbelandria)
 
 
