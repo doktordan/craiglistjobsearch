@@ -10,25 +10,31 @@
                 <option value="">City</option>
                  <option ng-repeat="city in cityScap | toArray | orderBy:'name' | unique:'name'" value={{city.data}}>{{city.data}} - {{city.name}}</option>
             </select>
-            <br />
-            <h4>Jobs or Resumes</h4>
+            <h4>Search Modes</h4>
             <div class="btn-group"=>
                 <label  id="craiglistSections1" class="btn btn-default disabled" ng-change="getSelectors()" data-ng-model="type" btn-radio="'Jobs'">Jobs</label>
                 <label id="craiglistSections2" class="btn btn-default disabled" ng-change="getSelectors()" data-ng-model="type" btn-radio="'Resume'">Resumes</label>
             </div>
-            <br />
-
-            <div  style="margin-top: 20px; column-count: 3; -webkit-column-count: 3; -webkit-column-rule: 4px outset grey; column-rule: 4px outset grey;">
-                <h4 id="message1"></h4>
-                <div id="craiglistSpecifics" ng-repeat="job in jobScap" data-ng-model="specific">
-                    <input type="checkbox" checkbox-group value={{job.href}}> {{job.text}}<br>
+            <div  ng-show="craiglistSpecifics">
+                <div  style="margin-top: 20px; column-count: 3; -webkit-column-count: 3; -webkit-column-rule: 4px outset grey; column-rule: 4px outset grey;">
+                    <h4 id="message1"></h4>
+                    <div ng-repeat="job in jobScap" data-ng-model="specific">
+                        <input type="checkbox" id="{{job.href}}" checkbox-group value={{job.href}}> {{job.text}}<br>
+                    </div>
                 </div>
+                <br/>
+                <accordion ng-show="accordionShow">
+                    <accordion-group is-open="status.open">
+                        <accordion-heading>
+                            Saved Options <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </accordion-heading>
+                        <a  ng-click="savedSearches()">Technology</a>
+                    </accordion-group>
+                </accordion>
             </div>
-            <br />
-
-
+            <h4>Search</h4>
             <input disabled type="text" id="craiglistSearch" data-ng-model="search" placeholder="Search" class="form-control" ng-keyup="userTyped('craiglistGo')">
-            <br /><button disabled id="craiglistGo">Search</button>
+            <br /><button disabled id="craiglistGo">Go Now</button>
         </form>
         <br /><br />
     </div>

@@ -96,6 +96,7 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
       Craiglists.get(specifics).$promise.then(
         function(results) {
           $scope.jobScap = results;
+          $scope.accordionShow = true;
           document.getElementById("message1").innerHTML = "";
         },
         function(err) {
@@ -142,14 +143,19 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
   },
   concatenateObjects = function(obj2){
     var deferred = $q.defer(),
-        counter = 0;
+        counter = 0,
+        empty=1;
     for (var value in obj2) {
         counter++;
+        empty=0;
         $scope.craiglists.push(obj2[value]);
         if (counter===Object.keys(obj2).length){
           deferred.resolve();
         }
     }
+     if (empty===1){
+          deferred.resolve();
+        }
     return deferred.promise;
   },
   getMultipleSearch = function(){
@@ -171,18 +177,26 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
              concatenateObjects(results.allSearches).then(function(){
               counter++;
               if (counter == $scope.array.length){
-                $scope.counter = $scope.craiglists.length;
+                $scope.counter = Object.keys($scope.craiglists).length;
                 deferred.resolve();
               }
           });
           },
           //error
           function(err) {
+            console.log('one')
+             counter++;
           }
       );
     });
   return deferred.promise;
-  }
+  };
+  $scope.savedSearches = function(){
+    $scope.array = ['/search/eng','/search/sof','/search/sad','/search/web'];
+    $scope.array.forEach(function(value){
+       document.getElementById(value).checked = true;
+    })
+  };
   $scope.userTyped = function(commen){
     if (this.search!=undefined){
           if(this.search.length > 0){
@@ -206,12 +220,15 @@ angular.module('craiglists').controller('CraiglistsController', ['$window','$q',
     }
   };
   $scope.getSelectors = function(){
+    $scope.accordionShow = false;
     switch(this.type){
       case "Jobs":
           document.getElementById("message1").innerHTML = "Loading Specific";
+          $scope.craiglistSpecifics = true;
           getSpecifics('#jjj0');
           break;
       case "Resume":
+          $scope.craiglistSpecifics = false;
           $scope.array=['/search/res'];
           break;
      }

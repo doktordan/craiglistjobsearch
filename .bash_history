@@ -296,3 +296,43 @@ git checkout -b daniel origin/daniel
 git checkout master
 git merge --no-ff daniel
 git push origin master
+git status
+git branch
+git checkout daniel
+git checkout daniel -f
+git checkout master
+git checkout gaspar
+git pull origin gaspar
+git checkout master
+git merge --no-ff gaspar
+git push origin master
+git status
+git branch
+git push origin master
+git commit -am "Promised Array of Multiplesearches"
+git push origin master
+git status
+git status
+git commit -am "Craigslist View"
+git push origin master
+git status
+git commit -am "Multiple searches displaying"
+git push origin master
+git checkout gaspar
+git fetch origin
+git checkout master
+git merge --no-ff gaspar
+git checkout gaspar
+git pull origin gaspar
+git checkout master
+git merge --no-ff gaspar
+git push origin master
+git status
+git tag
+git tag -a v0.2 -m "Radio Selection of Jobs and Resumes multiple search"
+git status
+git commit -am "Multiple Searches with Radio Buttons"
+git push origin master
+git tag
+git status
+exit
