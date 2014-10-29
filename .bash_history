@@ -336,3 +336,25 @@ git push origin master
 git tag
 git status
 exit
+git status
+git commit -am "Accordion Menu for Saved 'Hard coded' Specifics"
+git push origin master
+git branch
+git tag
+git tag -a v1.0 -m "Craiglist Job and Resumes Search 1.0"
+git status
+git commit -am "Clean Craiglist Job and Resume Search"
+git log
+git push origin master
+ls
+git status
+git commit -am "Menu Modifications"
+git push origin master
+grunt
+git status
+git add public/modules/core/img/brand/favicon.ico
+git add public/modules/craiglists/css/
+git status
+git commit -am "Css for Craiglist view"
+git push origin master
+grunt
