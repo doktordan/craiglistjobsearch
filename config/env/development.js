@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/shops-dev',
 	app: {
-		title: 'Shops - Development Environment'
+		title: 'Search - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

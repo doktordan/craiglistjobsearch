@@ -358,3 +358,74 @@ git status
 git commit -am "Css for Craiglist view"
 git push origin master
 grunt
+grunt
+git status
+git commit -am "Readme"
+git push origin master
+git status
+git commit -am "Readme"
+git push origin master
+git commit -am "Readme"
+git push origin master
+git commit -am "Readme"
+git push origin master
+git commit -am "Readme"
+git push origin master
+grunt
+grunt
+exit
+apt-get upgrade
+apt-get update
+apt-get dist-upgrade
+add-apt-repository ppa:chris-lea/node.js
+apt-get install nodejs npm
+:wq
+exit
+apt-get  install mongodb
+apt-get -Y install python-software-properties
+apt-get install python-software-properties
+exit
+exit
+grunt
+sudo npm install
+grunt
+sudo node-gyp rebuild
+sudo bash
+grunt
+sudo bash
+grunt
+ssh localhost
+sudo apt-get install python-setuptools
+ mkdir ~/src
+cd ~/src
+mkdir mojoGateway
+ls
+cd mojoGateway/
+ls
+sudo python setup.py install
+ls
+git init
+ls
+sudo python setup.py install
+cd ..
+ls
+cd ..
+ls
+cd src
+ls
+cd ..
+rm -rf src
+ls
+ls
+git status
+cd ..
+ls
+cd Gas
+cd Gaspar/
+ls
+cd ..
+ls
+mkdir mojoGateway
+cd ..
+ls
+exit
